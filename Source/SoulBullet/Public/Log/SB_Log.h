@@ -16,4 +16,4 @@ DECLARE_LOG_CATEGORY_EXTERN(LogSBCharacter , Log, All);
 DECLARE_LOG_CATEGORY_EXTERN(LogSBCore , Log, All);
 
 #define SB_Log(Category, Verbosity, Format, ...)\
-	UE_LOG(Category, Verbosity, TEXT("[%s] " Format), *FString(__FUNCTION__), ##__VA_ARGS__);
+	UE_LOG(Category, Verbosity, TEXT("[%s] " Format), *FString(__FUNCTION__), ##__VA_ARGS__)
