@@ -16,6 +16,9 @@ public class SoulBullet : ModuleRules
 			"InputCore", 
 			"EnhancedInput",
 			
+			"CommonUI",
+			"CommonInput",
+			
 			"GameplayAbilities",
 			"GameplayTags",
 			"GameplayTasks"
