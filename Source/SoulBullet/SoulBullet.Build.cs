@@ -16,6 +16,7 @@ public class SoulBullet : ModuleRules
 			"InputCore", 
 			"EnhancedInput",
 			
+			"UMG",
 			"CommonUI",
 			"CommonInput",
 			
