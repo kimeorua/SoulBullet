@@ -21,6 +21,9 @@ public:
 	UFUNCTION()
 	void OnClickGameStart();
 	
+	UFUNCTION()
+	void OnClickOption();
+	
 protected:
 	virtual void NativeConstruct() override;
 	virtual UWidget* NativeGetDesiredFocusTarget() const override;
@@ -40,4 +43,7 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="PopupUI", meta=(AllowPrivateAccess="ture"))
 	TSubclassOf<USB_BasePopupUI> GameStartPopupUI;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="PopupUI", meta=(AllowPrivateAccess="ture"))
+	TSubclassOf<USB_BasePopupUI> GameOptionPopupUI;
 };

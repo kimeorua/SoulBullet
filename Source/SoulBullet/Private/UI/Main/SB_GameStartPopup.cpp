@@ -16,16 +16,9 @@ void USB_GameStartPopup::InitFocus()
 	}
 }
 
-void USB_GameStartPopup::OnBackButton()
-{
-	DeactivateWidget();
-}
-
 void USB_GameStartPopup::NativeConstruct()
 {
 	Super::NativeConstruct();
-	
-	BackButton->OnClicked().AddUObject(this, &USB_GameStartPopup::OnBackButton);
 }
 
 UWidget* USB_GameStartPopup::NativeGetDesiredFocusTarget() const

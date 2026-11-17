@@ -3,7 +3,6 @@
 #include "UI/Main/SB_MainUI.h"
 
 #include "CommonButtonBase.h"
-#include "Log/SB_Log.h"
 #include "Widgets/CommonActivatableWidgetContainer.h"
 
 #include "UI/Main/SB_BasePopupUI.h"
@@ -25,6 +24,19 @@ void USB_MainUI::OnClickGameStart()
 	}
 }
 
+void USB_MainUI::OnClickOption()
+{
+	if (IsValid(GameStartPopupUI))
+	{
+		USB_BasePopupUI* CreatedPopup = MenuStack->AddWidget<USB_BasePopupUI>(GameOptionPopupUI);
+		
+		if (IsValid(CreatedPopup))
+		{
+			CreatedPopup->InitFocus();
+		}
+	}
+}
+
 void USB_MainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -34,6 +46,11 @@ void USB_MainUI::NativeConstruct()
 		GameStartButton->SetFocus();
 		
 		GameStartButton->OnClicked().AddUObject(this, &USB_MainUI::OnClickGameStart);
+	}
+	
+	if (GameOptionButton)
+	{
+		GameOptionButton->OnClicked().AddUObject(this, &USB_MainUI::OnClickOption);
 	}
 }
 

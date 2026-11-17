@@ -18,9 +18,6 @@ public:
 	
 	virtual void InitFocus() override;
 	
-	UFUNCTION()
-	void OnBackButton();
-	
 protected:
 	virtual void NativeConstruct() override;
 	virtual UWidget* NativeGetDesiredFocusTarget() const override;
@@ -31,7 +28,4 @@ private:
 	
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UCommonButtonBase> LoadGameButton;
-	
-	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UCommonButtonBase> BackButton;
 };

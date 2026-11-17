@@ -20,6 +20,9 @@ public:
 	
 	virtual void InitFocus();
 	
+	UFUNCTION()
+	void OnBackButton();
+	
 protected:
 	virtual void NativeConstruct() override;
 	
@@ -28,4 +31,7 @@ protected:
 private:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UBackgroundBlur> Blur;
+	
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UCommonButtonBase> BackButton;
 };
