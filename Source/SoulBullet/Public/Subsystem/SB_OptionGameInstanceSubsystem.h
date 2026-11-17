@@ -21,6 +21,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void ApplyInitialVolume();
+	
+	void SetGraphicQuality(int32 NewQualityLevel);
+	int32 GetGraphicQuality() const;
 
 private:
 	float CurrentVolume = 1.0f;

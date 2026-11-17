@@ -8,6 +8,7 @@
 #include "SaveGame/SB_OptionSaveGame.h"
 #include "DeveloperSettings/SB_DeveloperSetting_Option.h"
 #include "DataAsset/SB_OptionDataAsset.h"
+#include "GameFramework/GameUserSettings.h"
 
 
 void USB_OptionGameInstanceSubsystem::Initialize(FSubsystemCollectionBase& Collection)
@@ -25,6 +26,12 @@ void USB_OptionGameInstanceSubsystem::Initialize(FSubsystemCollectionBase& Colle
 	if (USB_OptionSaveGame* LoadedGame = Cast<USB_OptionSaveGame>(UGameplayStatics::LoadGameFromSlot(USB_OptionSaveGame::SaveSlotName, 0)))
 	{
 		CurrentVolume = LoadedGame->SavedVolume;
+		
+		if (UGameUserSettings* UserSettings = UGameUserSettings::GetGameUserSettings())
+		{
+			UserSettings->SetOverallScalabilityLevel(LoadedGame->SavedGraphicQualityLevel);
+			UserSettings->ApplySettings(false);
+		}
 	}
 	else
 	{
@@ -59,4 +66,30 @@ void USB_OptionGameInstanceSubsystem::ApplyInitialVolume()
 		
 		UGameplayStatics::SetSoundMixClassOverride(GetWorld(), OptionDA->DefaultSoundMix, OptionDA->MasterSoundClass, CurrentVolume, 1.0f, true);
 	}
+}
+
+void USB_OptionGameInstanceSubsystem::SetGraphicQuality(int32 NewQualityLevel)
+{
+	if (UGameUserSettings* UserSettings = UGameUserSettings::GetGameUserSettings())
+	{
+		int32 ClampedLevel = FMath::Clamp(NewQualityLevel, 0, 4);
+		
+		UserSettings->SetOverallScalabilityLevel(ClampedLevel);
+		UserSettings->ApplySettings(false);
+		
+		if (USB_OptionSaveGame* SaveGameInstance = Cast<USB_OptionSaveGame>(UGameplayStatics::CreateSaveGameObject(USB_OptionSaveGame::StaticClass())))
+		{
+			SaveGameInstance->SavedGraphicQualityLevel = ClampedLevel;
+			UGameplayStatics::SaveGameToSlot(SaveGameInstance, USB_OptionSaveGame::SaveSlotName, 0);
+		}
+	}
+}
+
+int32 USB_OptionGameInstanceSubsystem::GetGraphicQuality() const
+{
+	if (const UGameUserSettings* UserSettings = UGameUserSettings::GetGameUserSettings())
+	{
+		return UserSettings->GetOverallScalabilityLevel();
+	}
+	return 3;
 }

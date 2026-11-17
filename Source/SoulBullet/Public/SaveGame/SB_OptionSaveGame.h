@@ -15,8 +15,11 @@ class SOULBULLET_API USB_OptionSaveGame : public USaveGame
 	GENERATED_BODY()
 	
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings")
+	inline static const FString SaveSlotName = TEXT("OptionSloat");
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Sound")
 	float SavedVolume = 1.0f;
 	
-	inline static const FString SaveSlotName = TEXT("OptionSloat");
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Graphic")
+	int32 SavedGraphicQualityLevel = 3;
 };
