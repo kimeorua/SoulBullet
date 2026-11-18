@@ -24,6 +24,9 @@ public:
 	UFUNCTION()
 	void OnClickOption();
 	
+	UFUNCTION()
+	void OnClickQuit();
+	
 protected:
 	virtual void NativeConstruct() override;
 	virtual UWidget* NativeGetDesiredFocusTarget() const override;

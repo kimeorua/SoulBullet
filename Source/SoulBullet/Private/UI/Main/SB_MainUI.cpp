@@ -3,6 +3,7 @@
 #include "UI/Main/SB_MainUI.h"
 
 #include "CommonButtonBase.h"
+#include "Kismet/GameplayStatics.h"
 #include "Widgets/CommonActivatableWidgetContainer.h"
 
 #include "UI/Main/SB_BasePopupUI.h"
@@ -37,6 +38,17 @@ void USB_MainUI::OnClickOption()
 	}
 }
 
+void USB_MainUI::OnClickQuit()
+{
+	APlayerController* PC = nullptr;
+	if (ULocalPlayer* LocalPlayer = GetOwningLocalPlayer())
+	{
+		PC = LocalPlayer->GetPlayerController(GetWorld());
+	}
+	
+	UKismetSystemLibrary::QuitGame(this, PC, EQuitPreference::Quit, false);
+}
+
 void USB_MainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -51,6 +63,11 @@ void USB_MainUI::NativeConstruct()
 	if (GameOptionButton)
 	{
 		GameOptionButton->OnClicked().AddUObject(this, &USB_MainUI::OnClickOption);
+	}
+	
+	if (GameQuitButton)
+	{
+		GameQuitButton->OnClicked().AddUObject(this, &USB_MainUI::OnClickQuit);
 	}
 }
 
