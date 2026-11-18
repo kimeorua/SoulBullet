@@ -6,8 +6,6 @@
 #include "Engine/DeveloperSettings.h"
 #include "SB_DeveloperSetting_Option.generated.h"
 
-class USB_OptionDataAsset;
-
 UCLASS(Config = Game, DefaultConfig, DisplayName = "Soul Bullet Settings")
 class SOULBULLET_API USB_DeveloperSetting_Option : public UDeveloperSettings
 {

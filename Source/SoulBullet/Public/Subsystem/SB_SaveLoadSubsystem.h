@@ -6,9 +6,8 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "SB_SaveLoadSubsystem.generated.h"
 
-/**
- * 
- */
+class USB_LevelDataAsset;
+
 UCLASS()
 class SOULBULLET_API USB_SaveLoadSubsystem : public UGameInstanceSubsystem
 {
@@ -22,4 +21,9 @@ public:
 private:
 	UPROPERTY()
 	TObjectPtr<class USB_PlayerSaveGame> CurrentSaveGameData;
+	
+	void MoveToGameLevel();
+	
+	UPROPERTY()
+	TObjectPtr<USB_LevelDataAsset> LevelDA;
 };
