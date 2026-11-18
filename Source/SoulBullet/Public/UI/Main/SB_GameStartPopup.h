@@ -7,6 +7,8 @@
 #include "SB_GameStartPopup.generated.h"
 
 class UCommonButtonBase;
+class USB_NewGamePopup;
+class UCommonActivatableWidgetStack;
 
 UCLASS()
 class SOULBULLET_API USB_GameStartPopup : public USB_BasePopupUI
@@ -18,8 +20,12 @@ public:
 	
 	virtual void InitFocus() override;
 	
+	UFUNCTION()
+	void OnClickNewGame();
+	
 protected:
 	virtual void NativeConstruct() override;
+	virtual void NativeOnInitialized() override;
 	virtual UWidget* NativeGetDesiredFocusTarget() const override;
 	
 private:
@@ -28,4 +34,10 @@ private:
 	
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UCommonButtonBase> LoadGameButton;
+	
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UCommonActivatableWidgetStack> SaveSlotStack;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category ="Popup Class", meta=(AllowPrivateAccess="true"))
+	TSubclassOf<USB_NewGamePopup> NewGamePopup;
 };
