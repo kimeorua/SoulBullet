@@ -3,6 +3,7 @@
 
 #include "UI/Main/SB_GameStartPopup.h"
 #include "CommonButtonBase.h"
+#include "Subsystem/SB_LevelTransitionSubsystem.h"
 #include "Widgets/CommonActivatableWidgetContainer.h"
 
 #include "Subsystem/SB_SaveLoadSubsystem.h"
@@ -25,6 +26,9 @@ void USB_GameStartPopup::OnClickNewGame()
 {
 	UGameInstance* GI = GetGameInstance();
 	USB_SaveLoadSubsystem* SaveSubsystem = GI->GetSubsystem<USB_SaveLoadSubsystem>();
+	USB_LevelTransitionSubsystem* LevelTransitionSubsystem = GI->GetSubsystem<USB_LevelTransitionSubsystem>();
+	
+	if (!SaveSubsystem || !LevelTransitionSubsystem) { return; }
 	
 	if (GI && SaveSubsystem)
 	{
@@ -53,7 +57,8 @@ void USB_GameStartPopup::OnClickNewGame()
 		}
 		else
 		{
-			SaveSubsystem->SaveGameToSlot_Menu(1);
+			SaveSubsystem->SaveGameToSlot(1);
+			LevelTransitionSubsystem->MoveToGameLevel();
 		}
 	}
 }

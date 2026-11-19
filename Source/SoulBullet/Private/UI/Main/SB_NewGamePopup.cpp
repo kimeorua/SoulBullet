@@ -4,7 +4,7 @@
 #include "UI/Main/SB_NewGamePopup.h"
 
 #include "CommonButtonBase.h"
-#include "SaveGame/SB_PlayerSaveGame.h"
+#include "Subsystem/SB_LevelTransitionSubsystem.h"
 #include "Subsystem/SB_SaveLoadSubsystem.h"
 #include "UI/Main/SB_BaseSaveSlot.h"
 
@@ -31,6 +31,12 @@ void USB_NewGamePopup::NativeOnInitialized()
 	Super::NativeOnInitialized();
 	
 	SaveSlots->OnClickAction.AddUObject(this, &USB_NewGamePopup::OnClickAction);
+	
+	if (UGameInstance* GI = GetGameInstance())
+	{
+		SaveSubsystem = GI->GetSubsystem<USB_SaveLoadSubsystem>();
+		LevelTransitionSubsystem = GI->GetSubsystem<USB_LevelTransitionSubsystem>();
+	}
 }
 
 UWidget* USB_NewGamePopup::NativeGetDesiredFocusTarget() const
@@ -45,11 +51,7 @@ UWidget* USB_NewGamePopup::NativeGetDesiredFocusTarget() const
 
 void USB_NewGamePopup::OnClickAction(int Index)
 {
-	if (UGameInstance* GI = GetGameInstance())
-	{
-		if (USB_SaveLoadSubsystem* SaveSubsystem = GI->GetSubsystem<USB_SaveLoadSubsystem>())
-		{
-			SaveSubsystem->SaveGameToSlot_Menu(Index);
-		}
-	}
+	if (!SaveSubsystem || !LevelTransitionSubsystem) { return; }
+	SaveSubsystem->SaveGameToSlot(Index);
+	LevelTransitionSubsystem->MoveToGameLevel();
 }

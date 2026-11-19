@@ -27,6 +27,5 @@ void USB_BasePopupUI::NativeConstruct()
 bool USB_BasePopupUI::NativeOnHandleBackAction()
 {
 	DeactivateWidget();
-	
 	return true;
 }

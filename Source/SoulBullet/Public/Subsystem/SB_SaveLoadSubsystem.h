@@ -15,16 +15,12 @@ class SOULBULLET_API USB_SaveLoadSubsystem : public UGameInstanceSubsystem
 	GENERATED_BODY()
 	
 public:
-	void SaveGameToSlot_Menu(int32 SlotIndex);
-	bool LoadGameFromSlot_Menu(int32 SlotIndex);
+	void SaveGameToSlot(int32 SlotIndex);
+	bool LoadGameFromSlot(int32 SlotIndex);
 	bool DoesSlotExist(int32 SlotIndex) const;
 	USB_PlayerSaveGame* GetCurrentSaveGameData() const;
-	void MoveToGameLevel();
 
 private:
 	UPROPERTY()
 	TObjectPtr<USB_PlayerSaveGame> CurrentSaveGameData;
-	
-	UPROPERTY()
-	TObjectPtr<USB_LevelDataAsset> LevelDA;
 };

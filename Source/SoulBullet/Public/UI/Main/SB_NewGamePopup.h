@@ -7,6 +7,8 @@
 #include "SB_NewGamePopup.generated.h"
 
 class USB_BaseSaveSlot;
+class USB_SaveLoadSubsystem;
+class USB_LevelTransitionSubsystem;
 
 UCLASS()
 class SOULBULLET_API USB_NewGamePopup : public USB_BasePopupUI
@@ -27,4 +29,10 @@ private:
 	TObjectPtr<USB_BaseSaveSlot> SaveSlots;
 	
 	void OnClickAction(int Index);
+	
+	UPROPERTY()
+	TObjectPtr<USB_SaveLoadSubsystem> SaveSubsystem;
+	
+	UPROPERTY()
+	TObjectPtr<USB_LevelTransitionSubsystem> LevelTransitionSubsystem;
 };

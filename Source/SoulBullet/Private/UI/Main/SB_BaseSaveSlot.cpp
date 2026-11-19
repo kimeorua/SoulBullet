@@ -39,7 +39,7 @@ void USB_BaseSaveSlot::InitSlotText()
 	
 	for (int i = 0; i < 3; i++)
 	{
-		if (SaveSubsystem->LoadGameFromSlot_Menu(i + 1))
+		if (SaveSubsystem->LoadGameFromSlot(i + 1))
 		{
 			FString TextString = FString::Printf(TEXT("Test Int : %d"), SaveSubsystem->GetCurrentSaveGameData()->TestInt);
 			SaveSlotTexts[i]->SetText(FText::FromString(TextString));
