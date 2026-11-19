@@ -4,6 +4,10 @@
 #include "UI/Main/SB_BaseSaveSlot.h"
 
 #include "CommonButtonBase.h"
+#include "Components/TextBlock.h"
+#include "Log/SB_Log.h"
+#include "SaveGame/SB_PlayerSaveGame.h"
+#include "Subsystem/SB_SaveLoadSubsystem.h"
 
 
 USB_BaseSaveSlot::USB_BaseSaveSlot()
@@ -25,9 +29,33 @@ void USB_BaseSaveSlot::OnClickSaveSlot03()
 	OnClickAction.Broadcast(3);
 }
 
+void USB_BaseSaveSlot::InitSlotText()
+{
+	if (!SaveSubsystem)
+	{
+		SB_Log(LogSBCore, Error, TEXT("SaveSubsystem is NULL"));
+		return;
+	}
+	
+	for (int i = 0; i < 3; i++)
+	{
+		if (SaveSubsystem->LoadGameFromSlot_Menu(i + 1))
+		{
+			FString TextString = FString::Printf(TEXT("Test Int : %d"), SaveSubsystem->GetCurrentSaveGameData()->TestInt);
+			SaveSlotTexts[i]->SetText(FText::FromString(TextString));
+		}
+		else
+		{
+			SaveSlotTexts[i]->SetText(FText::FromString("Empty"));
+		}
+	}
+}
+
 void USB_BaseSaveSlot::NativeConstruct()
 {
 	Super::NativeConstruct();
+	
+	InitSlotText();
 }
 
 void USB_BaseSaveSlot::NativeOnInitialized()
@@ -48,6 +76,20 @@ void USB_BaseSaveSlot::NativeOnInitialized()
 	{
 		SaveSlotButton_03->OnClicked().AddUObject(this, &USB_BaseSaveSlot::OnClickSaveSlot03);
 	}
+	
+	UGameInstance* GI = GetGameInstance();
+	SaveSubsystem = GI->GetSubsystem<USB_SaveLoadSubsystem>();
+	
+	SaveSlotTexts.Empty();
+	
+	SaveSlotTexts.Add(SaveSlotText_01);
+	SaveSlotTexts.Add(SaveSlotText_02);
+	SaveSlotTexts.Add(SaveSlotText_03);
+}
+
+void USB_BaseSaveSlot::NativeOnActivated()
+{
+	Super::NativeOnActivated();
 }
 
 UWidget* USB_BaseSaveSlot::NativeGetDesiredFocusTarget() const

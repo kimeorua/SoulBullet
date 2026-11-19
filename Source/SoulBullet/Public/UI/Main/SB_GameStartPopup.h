@@ -8,6 +8,7 @@
 
 class UCommonButtonBase;
 class USB_NewGamePopup;
+class USB_LoadGamePopupUI;
 class UCommonActivatableWidgetStack;
 
 UCLASS()
@@ -22,6 +23,9 @@ public:
 	
 	UFUNCTION()
 	void OnClickNewGame();
+	
+	UFUNCTION()
+	void OnClickLoadGame();
 	
 protected:
 	virtual void NativeConstruct() override;
@@ -40,4 +44,7 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category ="Popup Class", meta=(AllowPrivateAccess="true"))
 	TSubclassOf<USB_NewGamePopup> NewGamePopup;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category ="Popup Class", meta=(AllowPrivateAccess="true"))
+	TSubclassOf<USB_LoadGamePopupUI> LoadGamePopup;
 };

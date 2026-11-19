@@ -3,10 +3,10 @@
 
 #include "UI/Main/SB_GameStartPopup.h"
 #include "CommonButtonBase.h"
-#include "Kismet/GameplayStatics.h"
 #include "Widgets/CommonActivatableWidgetContainer.h"
 
 #include "Subsystem/SB_SaveLoadSubsystem.h"
+#include "UI/Main/SB_LoadGamePopupUI.h"
 #include "UI/Main/SB_NewGamePopup.h"
 
 USB_GameStartPopup::USB_GameStartPopup()
@@ -58,9 +58,38 @@ void USB_GameStartPopup::OnClickNewGame()
 	}
 }
 
+void USB_GameStartPopup::OnClickLoadGame()
+{
+	if (IsValid(LoadGamePopup))
+	{
+		USB_BasePopupUI* CreatedPopup = SaveSlotStack->AddWidget<USB_BasePopupUI>(LoadGamePopup);
+		
+		if (IsValid(CreatedPopup))
+		{
+			CreatedPopup->InitFocus();
+		}
+	}
+}
+
 void USB_GameStartPopup::NativeConstruct()
 {
 	Super::NativeConstruct();
+	
+	UGameInstance* GI = GetGameInstance();
+	USB_SaveLoadSubsystem* SaveSubsystem = GI->GetSubsystem<USB_SaveLoadSubsystem>();
+	
+	if (!SaveSubsystem) { return; }
+	
+	LoadGameButton->SetIsEnabled(false);
+	
+	for (int i = 1; i <= 3; i++)
+	{
+		if (SaveSubsystem->DoesSlotExist(i))
+		{
+			LoadGameButton->SetIsEnabled(true);
+			break;
+		}
+	}
 }
 
 void USB_GameStartPopup::NativeOnInitialized()
@@ -70,6 +99,10 @@ void USB_GameStartPopup::NativeOnInitialized()
 	if (NewGameButton)
 	{
 		NewGameButton->OnClicked().AddUObject(this, &USB_GameStartPopup::OnClickNewGame);
+	}
+	if (LoadGameButton)
+	{
+		LoadGameButton->OnClicked().AddUObject(this, &USB_GameStartPopup::OnClickLoadGame);
 	}
 }
 

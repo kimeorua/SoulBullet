@@ -7,6 +7,7 @@
 #include "SB_SaveLoadSubsystem.generated.h"
 
 class USB_LevelDataAsset;
+class USB_PlayerSaveGame;
 
 UCLASS()
 class SOULBULLET_API USB_SaveLoadSubsystem : public UGameInstanceSubsystem
@@ -17,12 +18,12 @@ public:
 	void SaveGameToSlot_Menu(int32 SlotIndex);
 	bool LoadGameFromSlot_Menu(int32 SlotIndex);
 	bool DoesSlotExist(int32 SlotIndex) const;
+	USB_PlayerSaveGame* GetCurrentSaveGameData() const;
+	void MoveToGameLevel();
 
 private:
 	UPROPERTY()
-	TObjectPtr<class USB_PlayerSaveGame> CurrentSaveGameData;
-	
-	void MoveToGameLevel();
+	TObjectPtr<USB_PlayerSaveGame> CurrentSaveGameData;
 	
 	UPROPERTY()
 	TObjectPtr<USB_LevelDataAsset> LevelDA;

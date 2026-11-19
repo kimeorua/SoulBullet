@@ -34,9 +34,7 @@ bool USB_SaveLoadSubsystem::LoadGameFromSlot_Menu(int32 SlotIndex)
 
 	if (UGameplayStatics::DoesSaveGameExist(TargetSlotName, 0))
 	{
-		CurrentSaveGameData = Cast<USB_PlayerSaveGame>(
-			UGameplayStatics::LoadGameFromSlot(TargetSlotName, 0)
-		);
+		CurrentSaveGameData = Cast<USB_PlayerSaveGame>(UGameplayStatics::LoadGameFromSlot(TargetSlotName, 0));
 
 		if (CurrentSaveGameData)
 		{
@@ -53,6 +51,15 @@ bool USB_SaveLoadSubsystem::DoesSlotExist(int32 SlotIndex) const
 {
 	FString TargetSlotName = FString::Printf(TEXT("%s_%d"), *USB_PlayerSaveGame::SaveSlotName, SlotIndex);
 	return UGameplayStatics::DoesSaveGameExist(TargetSlotName, 0);
+}
+
+USB_PlayerSaveGame* USB_SaveLoadSubsystem::GetCurrentSaveGameData() const
+{
+	if (CurrentSaveGameData)
+	{
+		return CurrentSaveGameData;
+	}
+	return nullptr;
 }
 
 void USB_SaveLoadSubsystem::MoveToGameLevel()

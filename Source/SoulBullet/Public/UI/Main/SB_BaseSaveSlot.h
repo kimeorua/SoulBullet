@@ -9,6 +9,8 @@
 DECLARE_MULTICAST_DELEGATE_OneParam(OnClickActionDelegate, int32);
 
 class UCommonButtonBase;
+class UTextBlock;
+class USB_SaveLoadSubsystem;
 
 UCLASS()
 class SOULBULLET_API USB_BaseSaveSlot : public UCommonActivatableWidget
@@ -34,6 +36,7 @@ public:
 protected:
 	virtual void NativeConstruct() override;
 	virtual void NativeOnInitialized() override;
+	virtual void NativeOnActivated() override;
 	virtual UWidget* NativeGetDesiredFocusTarget() const override;
 	
 private:
@@ -46,4 +49,21 @@ private:
 	
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UCommonButtonBase> SaveSlotButton_03;
+	
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UTextBlock> SaveSlotText_01;
+	
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UTextBlock> SaveSlotText_02;
+	
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UTextBlock> SaveSlotText_03;
+	
+	UPROPERTY()
+	TObjectPtr<USB_SaveLoadSubsystem> SaveSubsystem;
+	
+	UPROPERTY()
+	TArray<UTextBlock*> SaveSlotTexts;
+	
+	void InitSlotText();
 };
