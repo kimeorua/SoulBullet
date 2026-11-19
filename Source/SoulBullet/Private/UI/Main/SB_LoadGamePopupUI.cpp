@@ -39,8 +39,23 @@ void USB_LoadGamePopupUI::NativeOnInitialized()
 	}
 }
 
+void USB_LoadGamePopupUI::NativeOnActivated()
+{
+	Super::NativeOnActivated();
+	
+	if (SaveSlots)
+	{
+		SaveSlots->ActivateWidget();
+	}
+}
+
 UWidget* USB_LoadGamePopupUI::NativeGetDesiredFocusTarget() const
 {
+	if (SaveSlots)
+	{
+		return SaveSlots->GetFirstSlotButton();
+	}
+    
 	return Super::NativeGetDesiredFocusTarget();
 }
 

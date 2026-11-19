@@ -39,6 +39,16 @@ void USB_NewGamePopup::NativeOnInitialized()
 	}
 }
 
+void USB_NewGamePopup::NativeOnActivated()
+{
+	Super::NativeOnActivated();
+	
+	if (SaveSlots)
+	{
+		SaveSlots->ActivateWidget();
+	}
+}
+
 UWidget* USB_NewGamePopup::NativeGetDesiredFocusTarget() const
 {
 	if (SaveSlots)

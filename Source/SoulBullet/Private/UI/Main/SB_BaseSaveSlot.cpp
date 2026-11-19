@@ -54,8 +54,6 @@ void USB_BaseSaveSlot::InitSlotText()
 void USB_BaseSaveSlot::NativeConstruct()
 {
 	Super::NativeConstruct();
-	
-	InitSlotText();
 }
 
 void USB_BaseSaveSlot::NativeOnInitialized()
@@ -90,6 +88,7 @@ void USB_BaseSaveSlot::NativeOnInitialized()
 void USB_BaseSaveSlot::NativeOnActivated()
 {
 	Super::NativeOnActivated();
+	InitSlotText();
 }
 
 UWidget* USB_BaseSaveSlot::NativeGetDesiredFocusTarget() const
