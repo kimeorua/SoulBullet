@@ -7,6 +7,7 @@
 #include "DataAsset/SB_BaseDataAsset.h"
 #include "SB_InputDataAsset.generated.h"
 
+class UInputMappingContext;
 class UInputAction;
 
 USTRUCT(BlueprintType)
@@ -41,8 +42,12 @@ public:
 	
 	const UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;
 	const TArray<FSB_InputConfig>& GetAbilityInputConfigs() const { return AbilityInputConfigs; }
+	UInputMappingContext* GetIMC() const { return DefaultIMC;}
 	
 protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "DataAsset | Input")
+	TObjectPtr<UInputMappingContext> DefaultIMC;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "DataAsset | Input")
 	TArray<FSB_InputConfig> NativeInputConfigs;
 

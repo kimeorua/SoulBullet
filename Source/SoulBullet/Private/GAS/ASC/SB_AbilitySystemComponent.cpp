@@ -4,5 +4,42 @@
 #include "GAS/ASC/SB_AbilitySystemComponent.h"
 
 
+void USB_AbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InInputTag)
+{
+	if (! InInputTag.IsValid()) { return; }
+	
+	for (FGameplayAbilitySpec& Spec : GetActivatableAbilities())
+	{
+		if (Spec.GetDynamicSpecSourceTags().HasTagExact(InInputTag))
+		{
+			Spec.InputPressed = true;
+			
+			if (Spec.IsActive())
+			{
+				AbilitySpecInputPressed(Spec);
+			}
+			else
+			{
+				TryActivateAbility(Spec.Handle);
+			}
+		}
+	}
+}
 
-
+void USB_AbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& InInputTag)
+{
+	if (! InInputTag.IsValid()) { return; }
+	
+	for (FGameplayAbilitySpec& Spec : GetActivatableAbilities())
+	{
+		if (Spec.GetDynamicSpecSourceTags().HasTagExact(InInputTag))
+		{
+			Spec.InputPressed = false;
+			
+			if (Spec.IsActive())
+			{
+				AbilitySpecInputReleased(Spec);
+			}
+		}
+	}
+}

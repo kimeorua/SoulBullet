@@ -13,8 +13,7 @@ UCLASS()
 class SOULBULLET_API USB_AbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
-	
-	
-	
-	
+public:
+	void OnAbilityInputPressed(const FGameplayTag& InInputTag);
+	void OnAbilityInputReleased(const FGameplayTag& InInputTag);
 };
