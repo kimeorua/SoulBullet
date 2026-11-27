@@ -75,6 +75,8 @@ void ASB_PlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	
 	SB_InputComp->BindNativeInputAction(InputDataAsset, SB_Tag::SB_Player_Input_Move, ETriggerEvent::Triggered, this, &ThisClass::InputMove);
 	SB_InputComp->BindNativeInputAction(InputDataAsset, SB_Tag::SB_Player_Input_Look, ETriggerEvent::Triggered, this, &ThisClass::InputLook);
+	
+	SB_InputComp->BindAbilityInputAction(InputDataAsset, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased);
 }
 
 void ASB_PlayerCharacter::InputMove(const FInputActionValue& InputActionValue)
@@ -111,12 +113,12 @@ void ASB_PlayerCharacter::InputLook(const FInputActionValue& InputActionValue)
 	}
 }
 
-void ASB_PlayerCharacter::Input_AbilityInputTagPressed(FGameplayTag InInputTag) const
+void ASB_PlayerCharacter::Input_AbilityInputTagPressed(FGameplayTag InInputTag)
 {
 	SB_ASC->OnAbilityInputPressed(InInputTag);
 }
 
-void ASB_PlayerCharacter::Input_AbilityInputTagReleased(FGameplayTag InInputTag) const
+void ASB_PlayerCharacter::Input_AbilityInputTagReleased(FGameplayTag InInputTag)
 {
 	SB_ASC->OnAbilityInputReleased(InInputTag);
 }

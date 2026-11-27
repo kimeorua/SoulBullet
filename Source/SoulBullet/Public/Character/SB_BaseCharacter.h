@@ -8,6 +8,7 @@
 #include "SB_BaseCharacter.generated.h"
 
 class USB_AbilitySystemComponent;
+class USB_CharacterStartUpDataAsset;
 
 UCLASS()
 class SOULBULLET_API ASB_BaseCharacter : public ACharacter, public IAbilitySystemInterface
@@ -25,4 +26,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<USB_AbilitySystemComponent> SB_ASC;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "SB|StartUpData")
+	TObjectPtr<USB_CharacterStartUpDataAsset> StartUpDataAsset;
 };

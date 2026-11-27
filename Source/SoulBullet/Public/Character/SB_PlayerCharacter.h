@@ -36,6 +36,6 @@ private:
 	void InputMove(const FInputActionValue& InputActionValue);
 	void InputLook(const FInputActionValue& InputActionValue);
 	
-	void Input_AbilityInputTagPressed(FGameplayTag InInputTag) const;
-	void Input_AbilityInputTagReleased(FGameplayTag InInputTag) const;
+	void Input_AbilityInputTagPressed(FGameplayTag InInputTag);
+	void Input_AbilityInputTagReleased(FGameplayTag InInputTag);
 };

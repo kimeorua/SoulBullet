@@ -3,6 +3,7 @@
 
 #include "Character/SB_BaseCharacter.h"
 
+#include "DataAsset/SB_CharacterStartUpDataAsset.h"
 #include "GAS/ASC/SB_AbilitySystemComponent.h"
 #include "Log/SB_Log.h"
 
@@ -28,10 +29,17 @@ void ASB_BaseCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 	
-	if (! SB_ASC)
+	if (!SB_ASC)
 	{
 		SB_Log(LogSBAbility, Warning, TEXT("SB_ASC Is Not Valid"));
 		return;
 	}
 	SB_ASC->InitAbilityActorInfo(this, this);
+	
+	if (! StartUpDataAsset)
+	{
+		SB_Log(LogSBAbility, Warning, TEXT("StartUpDataAsset Is Not Valid"));
+		return;
+	}
+	StartUpDataAsset->ApplyStartUpDataToASC(SB_ASC);
 }
